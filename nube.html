@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nube de Palabras</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #f4faff; /* Azul claro para el fondo */
+      margin: 0;
+      padding: 0;
+    }
+
+    #nube {
+      width: 100%; /* Ocupa todo el ancho */
+      height: 80vh; /* Ocupa el 80% de la altura de la ventana */
+      position: relative; /* Necesario para posicionar elementos absolutos */
+      margin: 20px auto;
+      overflow: visible; /* Asegurarse de que nada se recorta */
+    }
+
+    .word {
+      position: absolute;
+      font-weight: bold;
+      cursor: pointer;
+      color: #003366; /* Azul oscuro */
+      transition: transform 0.2s, color 0.2s; /* Animación de transformación */
+    }
+
+    .word:hover {
+      transform: scale(1.2); /* Efecto de agrandamiento */
+      color: #ff0000; /* Cambiar al rojo */
+    }
+  </style>
+</head>
+<body>
+  <h1>Nube de Palabras sobre la Paz</h1>
+  <div id="nube"></div>
+
+  <script>
+    // Lista de palabras relacionadas con la paz
+    const palabras = [
+      "Armonía", "Esperanza", "Solidaridad", "Futuro", "Justicia", "Unidad", "Equilibrio",
+      "Amistad", "Paz", "Felicidad", "Amor", "Respeto", "Compasión", "Diálogo",
+      "Colaboración", "Igualdad", "Libertad", "Entendimiento", "Tranquilidad", "Bondad",
+      "Generosidad", "Humanidad", "Empatía", "Serenidad", "Cuidado", "Sueños", "Valentía",
+      "Compromiso", "Armonía", "Esperanza"
+    ];
+
+    const nube = document.getElementById("nube");
+
+    // Generar palabras en posiciones aleatorias
+    palabras.forEach(palabra => {
+      const wordElement = document.createElement("span");
+      wordElement.classList.add("word");
+      wordElement.textContent = palabra;
+
+      // Estilo aleatorio para cada palabra
+      const fontSize = Math.random() * 24 + 16; // Tamaño entre 16px y 40px
+      const top = Math.random() * 70; // Posición vertical aleatoria (0-70% del contenedor)
+      const left = Math.random() * 90; // Posición horizontal aleatoria (0-90% del contenedor)
+      const rotation = Math.random() * 30 - 15; // Rotación entre -15 y 15 grados
+
+      wordElement.style.fontSize = `${fontSize}px`;
+      wordElement.style.top = `${top}%`;
+      wordElement.style.left = `${left}%`;
+      wordElement.style.transform = `rotate(${rotation}deg)`;
+
+      // Añadir evento de clic
+      wordElement.addEventListener("click", () => {
+        wordElement.style.color = "#ff0000"; // Cambiar al rojo
+        console.log(`Palabra seleccionada: ${palabra}`);
+      });
+
+      // Agregar la palabra a la nube
+      nube.appendChild(wordElement);
+    });
+  </script>
+</body>
+</html>

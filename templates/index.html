@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interacción Cascada</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4faff;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .palabra {
+      display: inline-block;
+      margin: 10px;
+      padding: 10px 20px;
+      background-color: #0055aa;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+
+    .palabra:hover {
+      background-color: #003366;
+    }
+
+    .palabra-activa {
+      position: fixed;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(2);
+      background-color: transparent !important;
+      color: red;
+      font-size: 3em;
+      font-weight: bold;
+      transition: all 0.5s;
+      padding: 0;
+      border-radius: 0;
+    }
+
+    .mensaje {
+      font-size: 1.5em;
+      margin-top: 20px;
+      display: none;
+      color: #333;
+      position: fixed;
+      top: 60%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  </style>
+</head>
+<body>
+  <div id="contenedor-palabras">
+    <div class="palabra" onclick="enviarPalabra(this, 'Amor')">Amor</div>
+    <div class="palabra" onclick="enviarPalabra(this, 'Paz')">Paz</div>
+    <div class="palabra" onclick="enviarPalabra(this, 'Futuro')">Futuro</div>
+    <div class="palabra" onclick="enviarPalabra(this, 'Armonía')">Armonía</div>
+    <div class="palabra" onclick="enviarPalabra(this, 'Serenidad')">Serenidad</div>
+    <div class="palabra" onclick="enviarPalabra(this, 'Equilibrio')">Equilibrio</div>
+    <div class="palabra" onclick="enviarPalabra(this, 'Tranquilidad')">Tranquilidad</div>
+    <div class="palabra" onclick="enviarPalabra(this, 'Silencio')">Silencio</div>
+    <div class="palabra" onclick="enviarPalabra(this, 'Unidad')">Unidad</div>
+    <div class="palabra" onclick="enviarPalabra(this, 'Esperanza')">Esperanza</div>
+    <div class="palabra" onclick="enviarPalabra(this, 'Fraternidad')">Fraternidad</div>
+  </div>
+  
+  <div id="mensaje" class="mensaje">¡Gracias! Ahora mira la pantalla.</div>
+  
+  <script>
+    function enviarPalabra(elemento, palabra) {
+      // Ocultar todas las palabras menos la seleccionada
+      document.querySelectorAll(".palabra").forEach(p => {
+        if (p !== elemento) p.style.display = "none";
+      });
+      
+      // Aplicar estilos a la palabra seleccionada
+      elemento.classList.add("palabra-activa");
+      
+      // Mostrar mensaje
+      document.getElementById("mensaje").style.display = "block";
+      
+      // Enviar la palabra al servidor sin mostrar la respuesta
+      fetch("http://127.0.0.1:5000/enviar_palabra", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ palabra })
+      })
+      .catch(error => console.error("Error:", error));
+    }
+  </script>
+</body>
+</html>
+

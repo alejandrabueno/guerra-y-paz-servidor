@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interacción Cascada</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4faff;
+      text-align: center;
+    }
+
+    h1 {
+      color: #003366;
+      margin: 20px 0;
+    }
+
+    .palabra {
+      display: inline-block;
+      margin: 10px;
+      padding: 10px 20px;
+      background-color: #0055aa;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+
+    .palabra:hover {
+      background-color: #003366;
+    }
+  </style>
+</head>
+<body>
+  <h1>Escoge una palabra</h1>
+  <div class="palabra" onclick="enviarPalabra('Amor')">Amor</div>
+  <div class="palabra" onclick="enviarPalabra('Paz')">Paz</div>
+
+  <script>
+    async function enviarPalabra(palabra) {
+        const frases = {
+            "Amor": ["El amor es el lenguaje universal.", "Sin amor no hay paz verdadera.", "Amar transforma el mundo."],
+            "Paz": ["La paz comienza dentro de nosotros.", "Sin paz no hay felicidad verdadera.", "Construyamos un mundo en paz."]
+        };
+        
+        const fraseAleatoria = frases[palabra][Math.floor(Math.random() * frases[palabra].length)];
+        
+        try {
+            let response = await fetch("http://127.0.0.1:5000/enviar_palabra", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ palabra, frase: fraseAleatoria })
+            });
+            let data = await response.json();
+            console.log(`Frase enviada al servidor: ${data.frase}`);
+        } catch (error) {
+            console.error("Error al enviar la palabra:", error);
+        }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interacción Cascada</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4faff;
+      text-align: center;
+    }
+
+    h1 {
+      color: #003366;
+      margin: 20px 0;
+    }
+
+    .palabra {
+      display: inline-block;
+      margin: 10px;
+      padding: 10px 20px;
+      background-color: #0055aa;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+
+    .palabra:hover {
+      background-color: #003366;
+    }
+  </style>
+</head>
+<body>
+  <h1>Escoge una palabra</h1>
+  <div class="palabra" onclick="enviarPalabra('Amor')">Amor</div>
+  <div class="palabra" onclick="enviarPalabra('Paz')">Paz</div>
+<div class="palabra" onclick="enviarPalabra('Futuro')">Futuro</div>
+<div class="palabra" onclick="enviarPalabra('Armonía')">Armonía</div>
+<div class="palabra" onclick="enviarPalabra('Serenidad')">Serenidad</div>
+<div class="palabra" onclick="enviarPalabra('Equilibrio')">Equilibrio</div>
+<div class="palabra" onclick="enviarPalabra('Tranquilidad')">Tranquilidad</div>
+<div class="palabra" onclick="enviarPalabra('Silencio')">Silencio</div>
+<div class="palabra" onclick="enviarPalabra('Unidad')">Unidad</div>
+<div class="palabra" onclick="enviarPalabra('Esperanza')">Esperanza</div>
+<div class="palabra" onclick="enviarPalabra('Fraternidad')">Fraternidad</div>
+<div class="palabra" onclick="enviarPalabra('Diálogo')">Diálogo</div>
+<div class="palabra" onclick="enviarPalabra('Calma')">Calma</div>
+<div class="palabra" onclick="enviarPalabra('Bienestar')">Bienestar</div>
+<div class="palabra" onclick="enviarPalabra('Compasión')">Compasión</div>
+<div class="palabra" onclick="enviarPalabra('Amistad')">Amistad</div>
+<div class="palabra" onclick="enviarPalabra('Empatía')">Empatía</div>
+<div class="palabra" onclick="enviarPalabra('Respeto')">Respeto</div>
+<div class="palabra" onclick="enviarPalabra('Tolerancia')">Tolerancia</div>
+<div class="palabra" onclick="enviarPalabra('Justicia')">Justicia</div>
+<div class="palabra" onclick="enviarPalabra('Solidaridad')">Solidaridad</div>
+<div class="palabra" onclick="enviarPalabra('Equidad')">Equidad</div>
+<div class="palabra" onclick="enviarPalabra('Bondad')">Bondad</div>
+<div class="palabra" onclick="enviarPalabra('Reconciliación')">Reconciliación</div>
+<div class="palabra" onclick="enviarPalabra('Humanidad')">Humanidad</div>
+<div class="palabra" onclick="enviarPalabra('Convivencia')">Convivencia</div>
+<div class="palabra" onclick="enviarPalabra('Luz')">Luz</div>
+<div class="palabra" onclick="enviarPalabra('Dignidad')">Dignidad</div>
+<div class="palabra" onclick="enviarPalabra('Plenitud')">Plenitud</div>
+<div class="palabra" onclick="enviarPalabra('Serenidad')">Serenidad</div>
+<div class="palabra" onclick="enviarPalabra('Felicidad')">Felicidad</div>
+<div class="palabra" onclick="enviarPalabra('Compromiso')">Compromiso</div>
+<div class="palabra" onclick="enviarPalabra('Esperanza')">Esperanza</div>
+
+
+  <script>
+   function enviarPalabra(palabra) {
+    fetch("http://127.0.0.1:5000/enviar_palabra", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ palabra })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === "ok") {
+            console.log(`Frase enviada al servidor: ${data.frase}`);
+        } else {
+            console.error(data.mensaje);
+        }
+    })
+    .catch(error => console.error("Error:", error));
+}
+  </script>
+</body>
+</html>
