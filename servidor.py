@@ -1,6 +1,7 @@
+import os
+import random
 from flask import Flask, render_template, request, jsonify
 from flask_cors import CORS
-import random
 
 app = Flask(__name__)
 CORS(app)
@@ -39,7 +40,6 @@ frases = {
     "Felicidad": ["La felicidad es un camino, no un destino.", "La felicidad se comparte.", "Haz lo que amas y serás feliz."],
     "Compromiso": ["El compromiso es la base del cambio.", "Sin compromiso, no hay transformación.", "Compromiso es acción, no palabras."],
     "Esperanza": ["La esperanza es el motor del mundo.", "Siempre hay esperanza.", "No pierdas la esperanza, lo mejor está por venir."]
-    
 }
 
 frase_actual = ""  # Variable para almacenar la frase seleccionada
@@ -65,4 +65,5 @@ def obtener_frase():
     return jsonify({"frase": frase_actual})
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))  # Configura el puerto dinámico en Railway
+    app.run(host="0.0.0.0", port=port)  # Asegura que el servidor escucha en todas las interfaces
